@@ -24,7 +24,7 @@ import time
 from OF import get_user_name
 from RS import random_string
 
-anti_nhelper_version = "0.1.0 Beta"
+anti_nhelper_version = "0.1.1 Beta"
 
 def kill_process_by_name(process_name):
     #Проходим по всем запущенным процессам
@@ -36,19 +36,19 @@ def kill_process_by_name(process_name):
                     exe_file = p.exe()
                     p.kill()
                     p.wait()
-                    logger.info(f"AN - Процесс с именем {proc.info['name']} (PID:{proc.info['pid']}) - убит.")
+                    logger.info(f"AN - Процесс с именем {proc.info["name"]} (PID:{proc.info["pid"]}) - убит.")
                 except Exception as e:
-                    logger.error(f"AN - Ошибка при закрытии процесса с именем {proc.info['name']} (PID:{proc.info['pid']}):\n{e}")
+                    logger.exception(f"AN - Ошибка при закрытии процесса с именем {proc.info["name"]} (PID:{proc.info["pid"]})")
 
                 try:
                     os.remove(exe_file)
-                    logger.info(f"AN - Файл процесса с именем {proc.info['name']} - удалён.")
+                    logger.info(f"AN - Файл процесса с именем {proc.info["name"]} - удалён.")
                 except Exception as e:
-                    logger.error(f"AN - Ошибка при удалении исполняемого файла процесса с именем {proc.info['name']} (PID:{proc.info['pid']}):\n{e}")
+                    logger.exception(f"AN - Ошибка при удалении исполняемого файла процесса с именем {proc.info["name"]} (PID:{proc.info["pid"]})")
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
         except Exception as e:
-            logger.error(f"AN - Ошибка при закрытии процесса по имени {proc.info['name']} (PID:{proc.info['pid']}):\n{e}")
+            logger.exception(f"AN - Ошибка при закрытии процесса по имени {proc.info["name"]} (PID:{proc.info["pid"]})")
 
 
 
@@ -68,7 +68,7 @@ def get_folder_names(target_path):
         else:
             return 0
     except Exception as e:
-        logger.error(f"AN - неизвестная ошибка при переборе каталогов:\n{e}")
+        logger.exception(f"AN - неизвестная ошибка при переборе каталогов")
         return 0
 
 
@@ -88,10 +88,13 @@ def DOP(debug_mode=False):
                 #logger.error(f"AN - ошибка при удалении подкаталога в {net_path}:\n{e}")
                 pass
 
-    try:
-        os.remove(r"C:\Users\Adminus\AppData\Local\NHelperV3.4")
-    except:
-        pass
+    dirs = [r"C:\Users\Adminus\AppData\Local\NHelperV3.4", r"C:\Users\Adminus\AppData\Local\NHelperV4", r"C:\Users\Adminus\AppData\Local\NHelperV4.1", r"C:\Users\Adminus\AppData\Local\NHelperV4.2"]
+
+    for dir in dirs:
+        try:
+            os.remove(dir)
+        except:
+            pass
 
 if __name__ == "__main__":
     logger.info(f"AntiNHelper v{anti_nhelper_version}")
@@ -106,5 +109,3 @@ if __name__ == "__main__":
         DOP(False)
         logger.info("AN - Цикл завершён, повтор...")
         time.sleep(0.5)
-
-#Всё выше перечисленое переведи на французкий язык целиком
