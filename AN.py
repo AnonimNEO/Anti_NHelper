@@ -20,7 +20,7 @@ import time
 # Работа с реестром
 import winreg
 
-anti_nhelper_version = "0.3.6 Beta"
+anti_nhelper_version = "0.3.7 Beta"
 
 NET_PATH = r"C:\Users\Adminus\AppData\Local\Temp\.net"
 NH_PATH = r"C:\Users\Adminus\AppData\Local\NHelperV4"
@@ -136,6 +136,7 @@ if __name__ == "__main__":
         print("║" + " " * 45 + "║")
         print("║" + "  Какой уязвимостью хотите воспользоваться?".center(45) + "║")
         print("║" + " " * 45 + "║")
+        print("║" + "  0) Выход из утилиты".ljust(45) + "║")
         print("║" + "  1) Названием процесса в %Temp%/.net/".ljust(45) + "║")
         print("║" + "  2) Защита NHelper от getgans".ljust(45) + "║")
         print("║" + "  3) Смена кодировки XML в user.config".ljust(45) + "║")
@@ -144,7 +145,9 @@ if __name__ == "__main__":
 
         choice = input("\n>>> Ваш выбор: ").strip()
 
-        if choice == "1":
+        if choice == "0":
+            exit()
+        elif choice == "1":
             if input("\n[?] Включить цикл? (1 - да, другое - нет): ").strip() == "1":
                 try:
                     logger.info("AN - Запуск цикла...")
@@ -154,6 +157,7 @@ if __name__ == "__main__":
                         time.sleep(0.5)
                 except KeyboardInterrupt:
                     logger.warning("AN - Цикл остановлен пользователем")
+                    continue
             else:
                 kill_nh()
         elif choice == "2":
