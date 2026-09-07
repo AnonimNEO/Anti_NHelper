@@ -22,7 +22,7 @@
 ## 2) Параметр EnableBlockSearch в реестре
 
 При каждом запуске NHelper проверяет значение параметра (DWORD) в реестре по пути:
-HKEY_LOCAL_MACHINE/SOFTWARE/Mozila/EnableBlockSearch
+HKEY_LOCAL_MACHINE/SOFTWARE/Mozilla/EnableBlockSearch
 Если он равен 1, то программа на этапе инициализации сообщит "ошибку" с текстом "Ты ваще, это мой вирус".
 Это встроенная защита NHelper, чтобы он не запускался когда работает вирус от *getgans*.
 
